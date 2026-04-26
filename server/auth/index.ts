@@ -49,7 +49,7 @@ export const auth = betterAuth({
       name: 'better-auth.session_token',
       options: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: false,
         sameSite: 'lax',
         path: '/',
         maxAge: 30 * 24 * 60 * 60, // 30 дней
