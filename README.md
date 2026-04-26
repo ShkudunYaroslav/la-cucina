@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# La Cucina — Веб-приложение для итальянского ресторана
 
-## Getting Started
+## Описание
 
-First, run the development server:
+Полноценное веб-приложение для автоматизации работы итальянского ресторана La Cucina. Позволяет клиентам просматривать меню с детальной информацией о блюдах, бронировать столики с выбором даты и времени, оставлять предзаказ. Для персонала реализована панель управления бронированиями и заказами с разделением по статусам. Приложение поддерживает ролевую модель (клиент, официант, администратор) с разграничением прав доступа.
 
+## Технологический стек
+
+|     Категория      |             Технологии             |
+|--------------------|------------------------------------|
+|    **Фреймворк**   | Next.js 15+ (App Router), React 19 |
+|      **Язык**      | TypeScript 5+ (строгая типизация)  |
+|      **API**       | tRPC (сквозная типобезопасность)   |
+|  **База данных**   | PostgreSQL + Drizzle ORM           |
+| **Аутентификация** | Better Auth (ролевая модель)       |
+|   **Стилизация**   | Tailwind CSS (тёмная тема)         |
+|   **Состояние**    | Zustand (корзина), React Query     |
+|   **Валидация**    | Zod + React Hook Form              |
+|    **Графики**     | Recharts                           |
+|    **Экспорт**     | XLSX (Excel)                       |
+|     **Иконки**     | Lucide Icons                       |
+|     **Деплой**     | Vercel + Supabase                  |
+
+## Основной функционал
+
+### Для клиентов
+-  Просмотр меню с фильтрацией по категориям
+-  Детальная информация о блюдах (состав, аллергены, время приготовления)
+-  Интерактивная SVG-схема зала ресторана с зонами (основной зал, VIP, терраса)
+-  Бронирование столиков с выбором даты, времени и количества гостей
+-  Предзаказ блюд при бронировании
+-  Избранное (сохраняется в базе данных для каждого пользователя)
+-  Личный кабинет с историей бронирований и возможностью отмены
+-  Система отзывов о ресторане
+
+### Для официантов
+-  Просмотр подтверждённых броней на сегодня
+-  Отметка о прибытии гостя
+-  Завершение визита
+-  Просмотр предзаказов гостей
+
+### Для администраторов
+-  Дашборд со статистикой и графиком загруженности
+-  Полное управление меню (добавление, редактирование, удаление блюд)
+-  Управление бронированиями (подтверждение, отмена, смена статусов)
+-  Управление отзывами
+-  Экспорт бронирований в Excel
+
+## Ролевая модель
+
+|           Роль            |                                 Доступ                              |
+|---------------------------|---------------------------------------------------------------------|
+|     **Клиент (user)**     | Меню, бронирование, избранное, отзывы, личный кабинет               |
+|   **Официант (waiter)**   | Панель официанта: сегодняшние брони, прибытие/завершение            |
+| **Администратор (admin)** | Админ-панель: управление меню, бронированиями, отзывами, статистика |
+
+## 🗄️ Схема базы данных
+
+|      Таблица      |                    Описание                    |
+|-------------------|------------------------------------------------|
+|      `users`      | Пользователи (авторизация через Better Auth)   |
+|     `sessions`    | Сессии пользователей                           |
+|     `accounts`    | Аккаунты (данные для входа)                    |
+|    `menu_items`   | Блюда меню                                     |
+|      `tables`     | Столики с координатами для интерактивной карты |
+|   `reservations`  | Бронирования                                   |
+|    `pre_orders`   | Предзаказы                                     |
+| `pre_order_items` | Позиции предзаказа                             |
+|    `favorites`    | Избранное пользователей                        |
+|     `reviews`     | Отзывы о ресторане                             |
+
+## 🔧 Установка и запуск
+
+### Предварительные требования
+- Node.js 18+
+- PostgreSQL 16+
+- pnpm
+
+### 1. Клонирование и установка зависимостей
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+git clone https://github.com/ShkudunYaroslav/la-cucina.git
+cd la-cucina
+pnpm install
