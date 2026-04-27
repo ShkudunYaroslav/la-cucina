@@ -87,8 +87,8 @@
 - pnpm
 
 ### 1. Клонирование и установка зависимостей
-git clone https://github.com/ShkudunYaroslav/la-cucina.git
-cd la-cucina
+git clone https://github.com/ShkudunYaroslav/la-cucina.git |
+cd la-cucina |
 pnpm install
 
 2. Настройка окружения
